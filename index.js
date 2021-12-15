@@ -9,6 +9,58 @@
  for you to use if you need it!
  */
 
+const createEmployeeRecord = function(employeeDataArray){
+    return {
+        firstName: employeeDataArray[0],
+        familyName: employeeDataArray[1],
+        title: employeeDataArray[2],
+        payPerHour: employeeDataArray[3],
+        timeInEvents: [],
+        timeOutEvents: []
+    }
+}
+
+const createEmployeeRecords = function(arrayOfEmployeeRecords){
+    return arrayOfEmployeeRecords.map(record => createEmployeeRecord(record))
+}
+
+const createTimeInEvent = function(dateStamp){
+    const [date, hour] = dateStamp.split(" ")
+    this.timeInEvents.push({
+        type: 'TimeIn',
+        hour: parseInt(hour, 10),
+        date: date
+    })
+    return this
+}
+
+const createTimeOutEvent = function(dateStamp){
+    const [date, hour] = dateStamp.split(" ")
+    this.timeOutEvents.push({
+        type: 'TimeOut',
+        hour: parseInt(hour, 10),
+        date: date
+    })
+    return this    
+}
+
+const hoursWorkedOnDate = function(dateInput){
+    const targetInDate = this.timeInEvents.find(function(e){
+        return e.date === dateInput
+    })
+
+    const targetOutDate = this.timeOutEvents.find(function(e){
+        return e.date === dateInput
+    })
+
+    return (targetOutDate.hour - targetInDate.hour) / 100
+
+}
+
+const wagesEarnedOnDate = function(dateInput){
+    return hoursWorkedOnDate.call(this, dateInput) * this.payPerHour
+}
+
 const allWagesFor = function () {
     const eligibleDates = this.timeInEvents.map(function (e) {
         return e.date
