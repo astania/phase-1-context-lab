@@ -73,3 +73,19 @@ const allWagesFor = function () {
     return payable
 }
 
+const findEmployeeByFirstName = function(employeeArray, targetName){
+    return employeeArray.find(function(e){
+        return e.firstName === targetName
+    })
+}
+
+
+const calculatePayroll = function (employeeArray) {
+    return employeeArray.reduce((total, record) => {
+        return total + allWagesFor.call(record)
+    }, 0)
+    
+}
+
+
+
